@@ -51,6 +51,7 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        //runs the server
         Server server = new Server(8080);
         server.handleRequests();
     }

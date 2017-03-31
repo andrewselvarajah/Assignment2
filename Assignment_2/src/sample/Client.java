@@ -31,7 +31,7 @@ public class Client {
 
 
 
-    }
+    }//gets the names of the client files
     public void getNames(){
         ArrayList<String> names = new ArrayList<>();
         int counter = 0;
@@ -57,7 +57,7 @@ public class Client {
 
 
     }
-
+//recieves the files from the server
     public void recieveFiles(String pathname){
 
         File[] files;
@@ -89,11 +89,12 @@ public class Client {
             out.print(request2);
             out.flush();
 
-
+            //recieves the file through a byte array
             byte [] mybytearray  = new byte [100000];
             InputStream is = sock.getInputStream();
             fos = new FileOutputStream(pathname);
             bos = new BufferedOutputStream(fos);
+
             bytesRead = is.read(mybytearray,0,mybytearray.length);
             current = bytesRead;
 
@@ -102,7 +103,7 @@ public class Client {
                         is.read(mybytearray, current, (mybytearray.length-current));
                 if(bytesRead >= 0) current += bytesRead;
             } while(bytesRead > -1);
-
+            //writes the file from the bufferedoutputStream
             bos.write(mybytearray, 0 , current);
             bos.flush();
 
@@ -111,6 +112,7 @@ public class Client {
         }catch (IOException e) {
             e.printStackTrace();
         }
+        //refreshed Listview
         namesClient = FXCollections.observableArrayList();
 
         File file = new File("src/Files");
@@ -126,7 +128,7 @@ public class Client {
 
     }
 
-
+//sends the client files to server
     public void sendFiles(String filename){
         FileInputStream fis = null;
         BufferedInputStream bis = null;
@@ -146,12 +148,13 @@ public class Client {
             out.print(request);
             out.print(request2);
             out.flush();
-
+            //modifies file to byte array
             File myFile = new File (filename);
             byte [] mybytearray  = new byte [(int)myFile.length()];
             fis = new FileInputStream(myFile);
             bis = new BufferedInputStream(fis);
             bis.read(mybytearray,0,mybytearray.length);
+            //sends the byte array
             os = sock.getOutputStream();
             System.out.println("Sending " + filename + "(" + mybytearray.length + " bytes)");
             os.write(mybytearray,0,mybytearray.length);

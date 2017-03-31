@@ -21,7 +21,7 @@ public class ClientConnectionHandler implements Runnable {
     public  ArrayList<File> files;
     public Controller controller;
 
-
+//processess Socket
     public ClientConnectionHandler(Socket sock, Controller controller) {
 
         this.sock = sock;
